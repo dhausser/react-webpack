@@ -1,14 +1,14 @@
 // Generated using webpack-cli https://github.com/webpack/webpack-cli
 
-import { resolve as _resolve } from "path";
-import HtmlWebpackPlugin from "html-webpack-plugin";
+const path = require("path");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 const isProduction = process.env.NODE_ENV == "production";
 
 const config = {
   entry: "./src/index.tsx",
   output: {
-    path: _resolve(__dirname, "dist"),
+    path: path.resolve(__dirname, "dist"),
   },
   devServer: {
     open: true,
@@ -67,7 +67,7 @@ const config = {
   },
 };
 
-export default () => {
+module.exports = () => {
   if (isProduction) {
     config.mode = "production";
   } else {
