@@ -1,10 +1,33 @@
-const path = require("path");
+// Generated using webpack-cli https://github.com/webpack/webpack-cli
 
-module.exports = {
-  mode: "development",
+const path = require("path");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+
+const isProduction = process.env.NODE_ENV == "production";
+
+const config = {
   entry: "./src/index.tsx",
+  output: {
+    path: path.resolve(__dirname, "dist"),
+  },
+  devServer: {
+    open: true,
+    host: "localhost",
+  },
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: "index.html",
+    }),
+
+    // Add your plugins here
+    // Learn more about plugins from https://webpack.js.org/configuration/plugins/
+  ],
   module: {
     rules: [
+      {
+        test: /\.(eot|svg|ttf|woff|woff2|png|jpg|gif)$/i,
+        type: "asset",
+      },
       {
         test: /\.tsx?$/,
         use: "ts-loader",
@@ -17,13 +40,12 @@ module.exports = {
             loader: "style-loader",
           },
           {
-            loader: "css-loader", // translates CSS into CommonJS
+            loader: "css-loader",
           },
           {
-            loader: "less-loader", // compiles Less to CSS
+            loader: "less-loader",
             options: {
               lessOptions: {
-                // If you are using less-loader@5 please spread the lessOptions to options directly
                 modifyVars: {
                   "primary-color": "#1DA57A",
                   "link-color": "#1DA57A",
@@ -35,13 +57,21 @@ module.exports = {
           },
         ],
       },
+
+      // Add your rules for custom modules here
+      // Learn more about loaders from https://webpack.js.org/loaders/
     ],
   },
   resolve: {
     extensions: [".tsx", ".ts", ".js"],
   },
-  output: {
-    filename: "bundle.js",
-    path: path.resolve(__dirname, "dist"),
-  },
+};
+
+module.exports = () => {
+  if (isProduction) {
+    config.mode = "production";
+  } else {
+    config.mode = "development";
+  }
+  return config;
 };
