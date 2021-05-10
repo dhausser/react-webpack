@@ -1,6 +1,6 @@
 import React, { useState, ReactElement } from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import { Layout, Menu, Breadcrumb } from "antd";
+import { Layout, Menu, Breadcrumb, DatePicker, DatePickerProps } from "antd";
 import {
   DesktopOutlined,
   PieChartOutlined,
@@ -78,6 +78,16 @@ function App(): ReactElement {
   );
 }
 
+function handleChange(event: any) {
+  console.log('onHandle')
+  console.log(event)
+}
+
+function handleOk(event: any) {
+  console.log('onOk')
+  console.log(event)
+}
+
 function Home() {
   return (
     <Content style={{ margin: "0 16px" }}>
@@ -91,6 +101,7 @@ function Home() {
       >
         <h2>Home</h2>
         Bill is a cat.
+        <DatePicker showTime onChange={handleChange} onOk={handleOk} />
       </div>
     </Content>
   );
